@@ -7,26 +7,47 @@
 #include "ResourceManager.h"
 #include "Collider.h"
 #include "Input.h"
+#include "Time.h"
+#include "Vector2.h"
+#include "StatusManager.h"
 
-class Object{
-public:
+class GameManager;
 
-	Object();
-	~Object();
+namespace breaker{
+	class Object{
+	public:
 
-	virtual void Draw();
-	virtual void Update(double deltaTime){};
+		Object();
+		~Object();
+
+		virtual void Draw(){}
+		virtual void Update(){ collidingObject = nullptr; }
+		bool CollidingWith(Object *obj);
+		void SetCollidingWith(Object *obj){ collidingObject = obj; }
+		void CreteCollider(SDL_Rect coords);
+		SDL_Rect GetCoords() const{ return coords; }
+
+		int GetIfDelete(){ return deleteReady; }
+
+		Collider *GetCollider() const{ return collider; }
+
+	protected:
+
+		void UpdateColliderPos();
+
+		GameManager *gameManager;
+
+		float speed = 0;
+		Object *collidingObject = nullptr;
+		SDL_Rect coords = { 0, 0, 0, 0 };
+		std::vector<SDL_Texture*> textures;
+		SDL_Texture *texture;
+		Input *input;
+		Collider *collider;
+		bool deleteReady = false;
 
 
-protected:
-
-	float speed = 0;
-	SDL_Rect coords = {0, 0, 0, 0};
-	std::vector<SDL_Texture*> textures;
-	SDL_Texture *texture;
-	Input *input;
-	Collider collider;
-
-};
+	};
+}
 
 #endif

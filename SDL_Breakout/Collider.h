@@ -1,17 +1,24 @@
-#pragma once
-class Collider{
-public:
-	
-	Collider(int x, int y, int w, int h);
-	~Collider();
+#ifndef COLLIDER_H
+#define COLLIDER_H
 
-	static bool Colliding(Collider col1, Collider col2);
+#include "SDL_Rect.h"
+#include <iostream>
 
-	void Update(int x, int y);
-	void Change(int w, int h);
+namespace breaker{
+	class Collider{
+	public:
 
-	int x_, y_, w_, h_;
+		Collider(float x, float y, float w, float h);
+		Collider(SDL_Rect rect);
+		~Collider();
 
+		bool Colliding(Collider *other);
 
-};
+		void Update(SDL_Rect coords);
 
+		float x_, y_, w_, h_;
+
+	};
+}
+
+#endif

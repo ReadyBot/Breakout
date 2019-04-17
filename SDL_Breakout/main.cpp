@@ -1,16 +1,9 @@
+
 #include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <vector>
 
-#include "Input.h"
-#include "Player.h"
-
+#include "GameManager.h"
 #include "Window.h"
-#include "ResourceManager.h"
 
-#define Window_Width 550
-#define Window_Height 400
 
 
 int main(int argc, char* argv[]){
@@ -74,7 +67,7 @@ int main(int argc, char* argv[]){
 		SDL_FreeSurface(surface2);
 	}*/
 	
-	
+	/*
 	SDL_Window *window = Window::Instance("SDL_Game", Window_Width, Window_Height)->GetWindow();
 	ResourceManager *resManag = ResourceManager::Instance();
 	SDL_Color bgColor = {
@@ -129,9 +122,6 @@ int main(int argc, char* argv[]){
 			break;
 		}
 
-
-		
-
 		//Loop all objects
 		//player->Update(deltaTime);
 		//player->Draw(renderer);
@@ -149,7 +139,13 @@ int main(int argc, char* argv[]){
 
 	}
 
-	delete(input);
+	delete(input);*/
+
+
+	SDL_Window *window = breaker::Window::Instance("SDL_Breakout")->GetWindow();
+	breaker::GameManager *manager = breaker::GameManager::Instance();
+
+	delete(manager);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 	return EXIT_SUCCESS;

@@ -1,17 +1,17 @@
 #include "Input.h"
 
 
-Input *Input::instance_;
+breaker::Input *breaker::Input::instance_;
 
-Input::Input(){
+breaker::Input::Input(){
 	keys = SDL_GetKeyboardState(&keyCount);
 	oldKeys = std::unique_ptr<Uint8>(new Uint8[keyCount]);
 }
 
 
-Input::~Input(){}
+breaker::Input::~Input(){}
 
-void Input::Update(){
+void breaker::Input::Update(){
 	
 	mOldButtons = mButtons;
 	memcpy(oldKeys.get(), keys, keyCount * sizeof(Uint8));

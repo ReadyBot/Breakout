@@ -1,21 +1,29 @@
-#pragma once
+#ifndef BALL_H
+#define BALL_H
+
 #include "Object.h"
-class Ball : public Object{
-public:
 
-	Ball(SDL_Rect coords, SDL_Texture *texture_);
-	~Ball();
+namespace breaker{
+	class Ball : public Object{
+	public:
 
-	virtual void Update(double deltaTime) override;
-	virtual void Draw() override;
+		Ball(SDL_Rect coords, std::string texturePath, Vector2 dir);
+		~Ball();
 
-
-private:
-
+		virtual void Update() override;
+		virtual void Draw() override;
 
 
-	float ballSpeed_ = 3;
-	float x_ = 0, y_ = 0;
+	private:
 
-};
 
+		Vector2 direction_;
+		float ballSpeed_ = 3;
+		float x_ = 0, y_ = 0;
+
+		int tmp = 0;
+
+	};
+}
+
+#endif

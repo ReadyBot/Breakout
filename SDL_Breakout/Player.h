@@ -3,23 +3,24 @@
 
 #include "Object.h"
 
-class Player : public Object {
-public:
+namespace breaker{
+	class Player : public Object{
+	public:
 
-	Player(SDL_Rect coords, SDL_Texture *texture_);
-	Player(SDL_Rect coords, std::string texturePath);
-	~Player();
+		Player(SDL_Rect coords, std::string texturePath);
+		~Player();
 
-	virtual void Update(double deltaTime) override;
-	virtual void Draw() override;
+		virtual void Update() override;
+		virtual void Draw() override;
 
 
-private:
+	private:
 
-	float playerSpeed_ = 3;
-	float sprintSpeed_ = 5;
-	float x_ = 0, y_ = 0;
+		float playerSpeed_ = 3;
+		float sprintSpeed_ = 5;
+		float x_ = 0, y_ = 0;
 
-};
+	};
+}
 
 #endif

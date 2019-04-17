@@ -3,21 +3,27 @@
 
 #include "Object.h"
 
-class Brick : public Object{
-public:
+namespace breaker{
+	class Brick : public Object{
+	public:
 
-	Brick(SDL_Rect coords, SDL_Texture *texture_);
-	~Brick();
+		Brick(SDL_Rect coords, std::string texturePath, int hp);
+		~Brick();
 
-	virtual void Update(double deltaTime) override;
-	virtual void Draw() override;
+		virtual void Update() override;
+		virtual void Draw() override;
 
-	bool SurvivesHit(){ return hp_ > 1; }
+		bool SurvivesHit(){ return hp_ > 1; }
 
-private:
+	private:
 
-	int hp_;
+		void TakeDamage();
 
-};
+		bool hasCollided_ = false;
+		std::string textureName_, texturePath_;
+		int hp_;
+
+	};
+}
 
 #endif
