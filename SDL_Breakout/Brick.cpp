@@ -4,12 +4,15 @@
 
 
 breaker::Brick::Brick(SDL_Rect coords, std::string texturePath, int hp) : hp_(hp), texturePath_(texturePath){
-	textureName_ = texturePath_ + std::to_string(hp_);
+	if(hp > 0)
+		textureName_ = texturePath_ + std::to_string(hp_);
+	else
+		textureName_ = texturePath_ + "unbreakable";
 	texture = ResourceManager::Instance()->GetTexture(textureName_);
 	Object::coords = coords;
 	collider = new Collider(coords);
-	std::cout << coords.x << " " << coords.y << " " << coords.w << " " << coords.h << std::endl;
-	std::cout << "Brick created" << std::endl;
+	//std::cout << coords.x << " " << coords.y << " " << coords.w << " " << coords.h << std::endl;
+	//std::cout << "Brick created" << std::endl;
 }
 
 breaker::Brick::~Brick(){}
@@ -45,9 +48,11 @@ void breaker::Brick::TakeDamage(){
 		StatusManager::Instance()->IncrementScore(1000);
 		return;
 	}
-	StatusManager::Instance()->IncrementScore(100);
-	textureName_ = texturePath_ + std::to_string(hp_);
-	texture = ResourceManager::Instance()->GetTexture(textureName_);
+	if(hp_ > 0){
+		StatusManager::Instance()->IncrementScore(100);
+		textureName_ = texturePath_ + std::to_string(hp_);
+		texture = ResourceManager::Instance()->GetTexture(textureName_);
+	}
 }
 
 

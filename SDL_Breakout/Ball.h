@@ -13,15 +13,12 @@ namespace breaker{
 		virtual void Update() override;
 		virtual void Draw() override;
 
-
 	private:
 
-
 		Vector2 direction_;
+		bool collided_ = false;
 		float ballSpeed_ = 3;
 		float x_ = 0, y_ = 0;
-
-		int tmp = 0;
 
 	};
 }

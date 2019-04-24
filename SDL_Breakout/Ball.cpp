@@ -21,20 +21,31 @@ void breaker::Ball::Update(){
 	UpdateColliderPos();
 	if(collidingObject != nullptr){
 		SDL_Rect other = collidingObject->GetCoords();
-		tmp++;
-		//std::cout << "Colliding: " << tmp << std::endl;
 
-		if(coords.x < other.x){
-			direction_.x = -1;
-		}
-		if(coords.x + coords.w > other.x + other.w){
-			direction_.x = 1;
-		}
-		if(coords.y < other.y){
+		if(collidingWithPlayer_){
+			//Hitting left 1/3 of the paddle
+			if(coords.x + coords.w < other.x + (other.w / 3)){
+				direction_.x = -1;
+			}
+			//Hitting right 1/3 of the paddle
+			if(coords.x > other.x + ((other.w / 3) * 2)){
+				direction_.x = 1;
+			}
 			direction_.y = -1;
-		}
-		if(coords.y + coords.h > other.y + other.h){
-			direction_.y = 1;
+			collidingWithPlayer_ = false;
+		} else {
+			if(coords.x < other.x){
+				direction_.x = -1;
+			}
+			if(coords.x + coords.w > other.x + other.w){
+				direction_.x = 1;
+			}
+			if(coords.y < other.y){
+				direction_.y = -1;
+			}
+			if(coords.y + coords.h > other.y + other.h){
+				direction_.y = 1;
+			}
 		}
 	}
 
@@ -50,5 +61,7 @@ void breaker::Ball::Update(){
 void breaker::Ball::Draw(){
 	SDL_RenderCopy(ResourceManager::Instance()->GetRenderer(), texture, nullptr, &coords);
 }
+
+
 
 

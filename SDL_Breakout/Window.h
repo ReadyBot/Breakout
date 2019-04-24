@@ -5,6 +5,7 @@
 #define Window_Height 400
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <string>
 
 namespace breaker{

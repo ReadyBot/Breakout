@@ -13,7 +13,6 @@ breaker::Object::~Object(){
 }
 
 bool breaker::Object::CollidingWith(Object *obj){
-	//collidingObject = nullptr;
 	if(collider->Colliding(obj->GetCollider())){
 		collidingObject = obj;
 		return true;

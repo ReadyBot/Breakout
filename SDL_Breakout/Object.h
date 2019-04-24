@@ -31,6 +31,8 @@ namespace breaker{
 
 		Collider *GetCollider() const{ return collider; }
 
+		void CollidingWithPlayer(){ collidingWithPlayer_ = true; }
+
 	protected:
 
 		void UpdateColliderPos();
@@ -45,6 +47,7 @@ namespace breaker{
 		Input *input;
 		Collider *collider;
 		bool deleteReady = false;
+		bool collidingWithPlayer_ = false;
 
 
 	};

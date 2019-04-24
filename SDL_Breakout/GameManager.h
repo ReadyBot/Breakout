@@ -5,8 +5,11 @@
 #include <algorithm>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <vector>
 #include <fstream>
+#include <ctype.h>
+#include <execution>
 
 #include "StatusManager.h"
 #include "Window.h"
@@ -17,6 +20,7 @@
 #include "Wall.h"
 #include "DeathWall.h"
 #include "Vector2.h"
+#include "Text.h"
 
 namespace breaker{
 	class GameManager{
@@ -46,6 +50,7 @@ namespace breaker{
 		void CreateBrick(int x, int y, int hp);
 		void CreateLevel();
 		void LoadLevel(int levelIndex);
+		void ClearLevel();
 		void GameLoop();
 
 
@@ -65,9 +70,12 @@ namespace breaker{
 		float brickHeight_ = Window_Height / 20;
 		float ballSize_ = Window_Width / 50;
 
-		Object *ball_;
+		Object *ball_, *player_;
 
 		bool gameRunning_;
+
+		int bricksLeft = 0;
+		int currentLevel = 1;
 
 	};
 }

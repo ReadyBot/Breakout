@@ -15,8 +15,10 @@ void breaker::Time::UpdateDeltaTime(){
 	deltaTime *= 0.001; //Convert from milli to seconds
 
 	fpsTimer += deltaTime;
-	if(deltaTime > 0.040)
+	if(deltaTime > 0.040){
 		std::cout << "long frame: " << deltaTime << std::endl;
+		deltaTime = 0;
+	}
 	fps++;
 	if(fpsTimer >= 1){
 		//std::cout << "fps: " << fps << std::endl;
