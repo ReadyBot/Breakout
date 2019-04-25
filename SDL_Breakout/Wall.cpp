@@ -5,7 +5,7 @@
 breaker::Wall::Wall(SDL_Rect coords){
 	Object::coords = coords;
 	collider = new Collider(coords);
-	std::cout << "Wall created" << std::endl;
+	//std::cout << "Wall created" << std::endl;
 }
 
 breaker::Wall::~Wall(){}
@@ -14,7 +14,6 @@ breaker::Wall::~Wall(){}
 void breaker::Wall::Update(){
 	UpdateColliderPos();
 	Object::Update();
-	//std::cout << collider->x_ << std::endl;
 }
 
 

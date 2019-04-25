@@ -11,7 +11,6 @@ breaker::Window::~Window(){}
 
 void breaker::Window::Init(){
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK); // | SDL_INIT_JOYSTICK
-	//TTF_Init();
 	// For alle mulige konfigurasjonsalternativer, se: http://goo.gl/8vDJN
 	window_ = SDL_CreateWindow(
 		title_.c_str(), // window title

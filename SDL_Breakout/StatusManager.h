@@ -28,6 +28,8 @@ namespace breaker{
 		void DamagePlayer(){
 			playerHp_ -= 1;
 			std::cout << "Player hp left: " << playerHp_ << std::endl;
+			if(playerHp_ == 0)
+				std::cout << "Game Over!\n" << "Total Score: " << score_ << std::endl;
 		}
 
 	private:

@@ -13,8 +13,6 @@ namespace breaker{
 		virtual void Update() override;
 		virtual void Draw() override;
 
-		bool SurvivesHit(){ return hp_ > 1; }
-
 	private:
 
 		void TakeDamage();

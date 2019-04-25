@@ -1,6 +1,13 @@
 #ifndef TIME_H
 #define TIME_H
 
+/*
+	The Time class is used to keep track of delatTime. DeltaTime is a 'double' variable
+	that tell the time between each frame. If you have 1 fps (1 frame per second) deltaTime
+	will be 1000 ms (or as we have it 1 second). If you have 100 fps deltaTime will be 10 ms (0.1 s).
+	DeltaTime is used to make movements smooth and the same speed independent from framerate.
+*/
+
 #include <SDL.h>
 #include <iostream>
 

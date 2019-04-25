@@ -9,11 +9,10 @@
 int main(int argc, char* argv[]){
 
 	SDL_Window *window = breaker::Window::Instance("SDL_Breakout")->GetWindow();
-	breaker::GameManager *manager = breaker::GameManager::Instance();
+	breaker::GameManager *gManager = breaker::GameManager::Instance();
 
-	delete(manager);
+	delete(gManager);
 	SDL_DestroyWindow(window);
-	TTF_Quit();
 	SDL_Quit();
 	return EXIT_SUCCESS;
 }
