@@ -144,7 +144,7 @@ void breaker::GameManager::LoadLevel(int levelIndex){
 		}
 		return;
 	}
-
+	std::cout << "Level: " << levelIndex << std::endl;
 	std::string lvlLine;
 	while(!lvlFile.eof()){
 		std::vector<int> brickRow;
@@ -184,6 +184,12 @@ void breaker::GameManager::GameLoop(){
 		if(input_->GetKeyDown(SDL_SCANCODE_ESCAPE)){
 			gameRunning_ = false;
 			break;
+		}
+		if(SDL_PollEvent(&event_)){
+			if(event_.type == SDL_QUIT){
+				gameRunning_ = false;
+				break;
+			}
 		}
 
 		if(input_->GetKeyUp(SDL_SCANCODE_P))

@@ -59,6 +59,7 @@ namespace breaker{
 		Time *time_;
 
 		std::vector<std::vector<int>> levelStructure_;
+		SDL_Event event_;
 
 		float playerWidth_ = Window_Width / 6;
 		float playerHeight_ = Window_Height / 40;

@@ -16,7 +16,8 @@ void breaker::Time::UpdateDeltaTime(){
 
 	fpsTimer += deltaTime;
 	if(deltaTime > 0.040){
-		std::cout << "long frame: " << deltaTime << std::endl;
+		//Uncomment to show long frames in console
+		//std::cout << "long frame: " << deltaTime << std::endl;
 		deltaTime = 0;
 	}
 	fps++;
