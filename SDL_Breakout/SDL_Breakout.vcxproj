@@ -99,10 +99,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -121,6 +123,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="res\levels\level_1.lvl" />
+    <None Include="res\levels\Level_2.lvl" />
+    <None Include="res\levels\Level_3.lvl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
@@ -154,6 +159,16 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\sprites\ball.png" />
+    <Image Include="res\sprites\brick_1.png" />
+    <Image Include="res\sprites\brick_2.png" />
+    <Image Include="res\sprites\brick_3.png" />
+    <Image Include="res\sprites\brick_4.png" />
+    <Image Include="res\sprites\brick_5.png" />
+    <Image Include="res\sprites\brick_unbreakable.png" />
+    <Image Include="res\sprites\paddle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
