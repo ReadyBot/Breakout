@@ -186,6 +186,9 @@ void breaker::GameManager::GameLoop(){
 			break;
 		}
 
+		if(input_->GetKeyUp(SDL_SCANCODE_P))
+			statManager_->PauseGame(!statManager_->IsGamePaused());
+
 		//TODO: Possibility to press the X to close program
 
 		if(statManager_->GetRespawnBall()){
@@ -207,11 +210,12 @@ void breaker::GameManager::GameLoop(){
 				}
 			});
 		}
-
+		
 		//
 		std::for_each(gameObjects_.begin(), gameObjects_.end(), [this](Object *obj){
 			if(statManager_->GetPlayerHp() > 0){
-				obj->Update();
+				if(!statManager_->IsGamePaused())
+					obj->Update();
 				//Remove bricks that has 0 hp
 				if(obj->GetIfDelete()){
 					bricksLeft_--;

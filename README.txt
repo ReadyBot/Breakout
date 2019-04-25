@@ -1,7 +1,9 @@
-Kontroller:
+﻿Kontroller:
  - Piltaster for å flytte spiller
  - Esc for å avslutte spillet
+ - P for pause/unpause
 
+Spillet starter i pause modus
 
 Bricks har liv, representert med en farge, hvor rød viser at bricken har 1 liv igjen.
 Når alle bricks er borte/døde (unntak av uknuselige bricks) vil neste level laste inn
@@ -19,7 +21,7 @@ og "levels". "sprites" mappen brukes til å ha alle bilder som er i bruk i seg. 
 levler i seg. Disse levelene holder et spesifikt møsnter:
  - Navnet på levelen må være "Level_X.lvl" hvor X er tallet på levelen (1, 2, 3 osv)
 
-Selve levlene er bygget opp på denne måten:
+Levelene er bygget opp på denne måten:
  - 10x6 grid av bricks
  - Tallene bestemmer livene til hver brick
  - En x betyr uknuselig brick
@@ -34,7 +36,22 @@ Eksempel på en level:
 0110110110
 0000000000
 
+Konsoll:
+I konsollen skrives ut informasjon som ikke vises på skjermen.
+ - Poeng
+ - Liv
+ - Pause/Unpause
+ - Long frames
 
+Long frames skrives til konsoll når en frame to lengre enn 0,04 sekunder å fullføre (alle oppdateringer,
+kalkulasjoner og tegning til skjerm). Long frames ble implementert for å finne mulige feil underveis, men
+brukes ikke til annet enn å stoppe ballen og spilleren fra å forsvinne synlig fra spillet om spilleren
+tar tak i vinduet mens spillet pågår.
+
+Score og liv skrives i konsoll fortløpende når endringer skjer. Og total score blir skrevet når spilleren
+har null liv igjen og spillet er over.
+
+Når spillet er over må spilelt lukkes og åpåpnes på nytt for å spilles igjen.
 
 
 
