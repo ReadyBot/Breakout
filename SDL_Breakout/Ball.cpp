@@ -2,14 +2,12 @@
 
 
 
-breaker::Ball::Ball(SDL_Rect coords, std::string texturePath, Vector2 dir) : Object(), direction_(dir) {
+breaker::Ball::Ball(SDL_Rect coords, std::string texturePath, Vector2 dir) : Object(), direction_(dir), x_(coords.x), y_(coords.y) {
 	texture = ResourceManager::Instance()->GetTexture(texturePath);
 	speed = ballSpeed_;
 	Object::coords = coords;
-	x_ = coords.x;
-	y_ = coords.y;
 	collider = new Collider(coords);
-	std::cout << "Ball created" << std::endl;
+	//std::cout << "Ball created" << std::endl;
 }
 
 

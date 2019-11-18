@@ -4,8 +4,7 @@
 #include "Object.h"
 
 namespace breaker{
-	class Wall :
-		public Object{
+	class Wall : public Object{
 	public:
 
 		Wall(SDL_Rect coords);

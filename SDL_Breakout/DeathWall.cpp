@@ -4,7 +4,7 @@
 breaker::DeathWall::DeathWall(SDL_Rect coords){
 	Object::coords = coords;
 	collider = new Collider(coords);
-	std::cout << "DeathWall created" << std::endl;
+	//std::cout << "DeathWall created" << std::endl;
 }
 
 breaker::DeathWall::~DeathWall(){}

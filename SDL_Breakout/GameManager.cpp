@@ -9,9 +9,9 @@ breaker::GameManager::GameManager(){
 
 breaker::GameManager::~GameManager(){
 	delete(input_);
-	delete(resManag_);
+	delete(resourceManager_);
 	delete(time_);
-	delete(statMan_);
+	delete(statManager_);
 }
 
 void breaker::GameManager::DeleteObject(Object *obj){
@@ -33,24 +33,22 @@ void breaker::GameManager::RespawnBall(){
 void breaker::GameManager::Init(){
 
 	input_ = Input::Instance();
-	resManag_ = ResourceManager::Instance();
+	resourceManager_ = ResourceManager::Instance();
 	time_ = Time::Instance();
-	statMan_ = StatusManager::Instance();
+	statManager_ = StatusManager::Instance();
 
 	SDL_Color bgColor = {
 		0, 0, 0, 255
 	};
 
-	if(!resManag_->CreateRenderer(Window::Instance()->GetWindow(), bgColor)){
-		SDL_DestroyWindow(Window::Instance()->GetWindow());
-		SDL_Quit();
+	if(!resourceManager_->CreateRenderer(Window::Instance()->GetWindow(), bgColor)){
 		return;
 	}
 	
 	CreatePlayer();
 	CreateBall();
 	CreateWalls();
-	LoadLevel(currentLevel);
+	LoadLevel(currentLevel_);
 
 	gameRunning_ = true;
 	GameLoop();
@@ -117,19 +115,18 @@ void breaker::GameManager::CreateBrick(int x, int y, int hp){
 	Object *obj = new Brick(coords, textureString, hp);
 	gameObjects_.push_back(obj);
 	if(hp > 0)
-		bricksLeft++;
+		bricksLeft_++;
 }
 
 
 void breaker::GameManager::CreateLevel(){
-	for(int i = 0; i < lvlStruct.size(); i++){
-		for(int j = 0; j < lvlStruct.at(i).size(); j++){
-			//std::cout << lvlStruct.at(i).at(j) << std::endl;
-			if(lvlStruct.at(i).at(j) == 0)
+	for(int i = 0; i < levelStructure_.size(); i++){
+		for(int j = 0; j < levelStructure_.at(i).size(); j++){
+			if(levelStructure_.at(i).at(j) == 0)
 				continue;
-			int x = j * brickWidth_; //((Window_Width - 10 * brickWidth_) / 2)
-			int y = i * brickHeight_ + brickHeight_;
-			CreateBrick(x, y, lvlStruct.at(i).at(j));
+			int x = j * brickWidth_;
+			int y = i * brickHeight_ + (brickHeight_ * 2);
+			CreateBrick(x, y, levelStructure_.at(i).at(j));
 		}
 	}
 }
@@ -147,7 +144,7 @@ void breaker::GameManager::LoadLevel(int levelIndex){
 		}
 		return;
 	}
-
+	std::cout << "Level: " << levelIndex << std::endl;
 	std::string lvlLine;
 	while(!lvlFile.eof()){
 		std::vector<int> brickRow;
@@ -159,7 +156,7 @@ void breaker::GameManager::LoadLevel(int levelIndex){
 				brickRow.push_back(-1);
 			}
 		}
-		lvlStruct.push_back(brickRow);
+		levelStructure_.push_back(brickRow);
 	}
 	lvlFile.close();
 	CreateLevel();
@@ -170,14 +167,13 @@ void breaker::GameManager::ClearLevel(){
 	std::for_each(gameObjects_.rbegin(), gameObjects_.rend(), [this](Object *obj){
 		if(dynamic_cast<Brick*>(obj)){
 			DeleteObject(obj);
-			std::cout << "deleting brick" << std::endl; //Some bricks not deleted
 		}
 	});
-	//Clear lvlStruct to have a clean vector to create a new level on
-	std::for_each(lvlStruct.begin(), lvlStruct.end(), [this](std::vector<int> vec){
+	//Clear levelStructure_ to have a clean vector to create a new level on
+	std::for_each(levelStructure_.begin(), levelStructure_.end(), [this](std::vector<int> vec){
 		vec.clear();
 	});
-	lvlStruct.clear();
+	levelStructure_.clear();
 }
 
 void breaker::GameManager::GameLoop(){
@@ -189,15 +185,26 @@ void breaker::GameManager::GameLoop(){
 			gameRunning_ = false;
 			break;
 		}
-
-		if(statMan_->GetRespawnBall()){
-			RespawnBall();
-			statMan_->RespawnBall(false);
+		if(SDL_PollEvent(&event_)){
+			if(event_.type == SDL_QUIT){
+				gameRunning_ = false;
+				break;
+			}
 		}
 
-		if(statMan_->GetPlayerHp() > 0){
+		if(input_->GetKeyUp(SDL_SCANCODE_P))
+			statManager_->PauseGame(!statManager_->IsGamePaused());
+
+		//TODO: Possibility to press the X to close program
+
+		if(statManager_->GetRespawnBall()){
+			RespawnBall();
+			statManager_->RespawnBall(false);
+		}
+
+		if(statManager_->GetPlayerHp() > 0){
 			//Check for collitions
-			std::for_each(gameObjects_.begin(), gameObjects_.end(), [this](Object *obj){
+			std::for_each(std::execution::par, gameObjects_.begin(), gameObjects_.end(), [this](Object *obj){
 				if(ball_ != obj){
 					if(ball_->CollidingWith(obj)){
 						if(dynamic_cast<Player*>(obj)){
@@ -206,31 +213,32 @@ void breaker::GameManager::GameLoop(){
 							obj->SetCollidingWith(ball_);
 						}
 					}
-					
 				}
 			});
 		}
-
-		//Remove bricks that has 0 hp
+		
+		//
 		std::for_each(gameObjects_.begin(), gameObjects_.end(), [this](Object *obj){
-			if(statMan_->GetPlayerHp() > 0){
-				obj->Update();
-			}
-			if(obj->GetIfDelete()){
-				bricksLeft--;
-				DeleteObject(obj);
-			} else{
-				obj->Draw();
+			if(statManager_->GetPlayerHp() > 0){
+				if(!statManager_->IsGamePaused())
+					obj->Update();
+				//Remove bricks that has 0 hp
+				if(obj->GetIfDelete()){
+					bricksLeft_--;
+					DeleteObject(obj);
+				} else{
+					obj->Draw();
+				}
 			}
 		});
 
-		if(bricksLeft <= 0){
-			currentLevel++; //Level overflow is checked when the new level is loaded
+		if(bricksLeft_ <= 0){
+			currentLevel_++; //Level overflow is checked when the new level is loaded
 			RespawnBall();
-			LoadLevel(currentLevel);
+			LoadLevel(currentLevel_);
 		}
 
-		resManag_->RefreshRenderer();
+		resourceManager_->RefreshRenderer();
 
 	}
 }

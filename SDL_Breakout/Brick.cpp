@@ -11,7 +11,6 @@ breaker::Brick::Brick(SDL_Rect coords, std::string texturePath, int hp) : hp_(hp
 	texture = ResourceManager::Instance()->GetTexture(textureName_);
 	Object::coords = coords;
 	collider = new Collider(coords);
-	//std::cout << coords.x << " " << coords.y << " " << coords.w << " " << coords.h << std::endl;
 	//std::cout << "Brick created" << std::endl;
 }
 
@@ -29,7 +28,6 @@ void breaker::Brick::Update(){
 	}
 
 	Object::Update();
-	//TODO: If hit, reduce hp and get new texture based on hp
 }
 
 
@@ -38,7 +36,8 @@ void breaker::Brick::Draw(){
 		return;
 	}
 	SDL_RenderCopy(ResourceManager::Instance()->GetRenderer(), texture, nullptr, &coords);
-	SDL_RenderDrawRect(ResourceManager::Instance()->GetRenderer(), &coords); //Drawing frame of rect
+	//Drawing a wireframe around the brick to make the illution that there is spacing between the bricks
+	SDL_RenderDrawRect(ResourceManager::Instance()->GetRenderer(), &coords); 
 }
 
 void breaker::Brick::TakeDamage(){

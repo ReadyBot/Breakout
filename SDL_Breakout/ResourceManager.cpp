@@ -12,7 +12,6 @@ SDL_Texture *breaker::ResourceManager::GetTexture(std::string key){
 	if(i != textureMap_.end()){
 		return i->second;
 	} else{
-		//TODO: Create failsafe if tmp = NULL
 		SDL_Texture *tmp = CreateTexture(key);
 		if(!tmp){
 			std::cout << "Failed to apply texture " << key << std::endl;
@@ -33,7 +32,6 @@ SDL_Texture *breaker::ResourceManager::CreateTexture(std::string imgName){
 	}
 
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer_, surface);
-	//TODO: Create failsafe for faild texture creation
 
 	if(!texture){
 		std::cout << "Failed to create texture " << SDL_Error << std::endl;

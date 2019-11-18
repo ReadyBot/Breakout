@@ -3,13 +3,11 @@
 
 breaker::Object::Object(){
 	input = Input::Instance();
-	//std::cout << "Object created" << std::endl;
 }
 
 
 breaker::Object::~Object(){
 	delete(collider);
-	//std::cout << "Deleting Object" << std::endl;
 }
 
 bool breaker::Object::CollidingWith(Object *obj){
@@ -25,7 +23,6 @@ void breaker::Object::CreteCollider(SDL_Rect coords){
 }
 
 void breaker::Object::UpdateColliderPos(){
-	//std::cout << coords.x << " : " << coords.y << std::endl;
 	collider->Update(coords);
 }
 

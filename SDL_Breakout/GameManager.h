@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 #include <vector>
 #include <fstream>
 #include <ctype.h>
@@ -20,7 +19,6 @@
 #include "Wall.h"
 #include "DeathWall.h"
 #include "Vector2.h"
-#include "Text.h"
 
 namespace breaker{
 	class GameManager{
@@ -55,14 +53,13 @@ namespace breaker{
 
 
 		std::vector<Object*> gameObjects_;
-		StatusManager *statMan_;
+		StatusManager *statManager_;
 		Input *input_;
-		ResourceManager *resManag_;
+		ResourceManager *resourceManager_;
 		Time *time_;
 
-		int score_ = 0;
-
-		std::vector<std::vector<int>> lvlStruct;
+		std::vector<std::vector<int>> levelStructure_;
+		SDL_Event event_;
 
 		float playerWidth_ = Window_Width / 6;
 		float playerHeight_ = Window_Height / 40;
@@ -74,8 +71,8 @@ namespace breaker{
 
 		bool gameRunning_;
 
-		int bricksLeft = 0;
-		int currentLevel = 1;
+		int bricksLeft_ = 0;
+		int currentLevel_ = 1;
 
 	};
 }

@@ -22,6 +22,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="res\levels\level_1.lvl" />
+    <None Include="res\levels\Level_2.lvl" />
+    <None Include="res\levels\Level_3.lvl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -69,9 +72,6 @@
     <ClCompile Include="DeathWall.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -116,8 +116,31 @@
     <ClInclude Include="DeathWall.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\sprites\paddle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sprites\ball.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sprites\brick_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sprites\brick_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sprites\brick_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sprites\brick_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sprites\brick_5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sprites\brick_unbreakable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -1,6 +1,14 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
+/*
+	The resourcemanager works by loading textures to memory by saving them in a std::map.
+	This way we reduce the time it takes to get a texture multiple times, becuase we have
+	created a cache to quickly get access to the textures.
+	The texture name is the key for the std::map and the texture itself is the value.
+	The path to the textures is hard coded for now, and all images has to be .png for it to work.
+*/
+
 #include <map>
 #include <string>
 #include <iostream>
@@ -20,11 +28,6 @@ namespace breaker{
 		ResourceManager();
 		~ResourceManager();
 
-		struct Texture{
-			SDL_Texture* texture;
-			SDL_Rect rect;
-		};
-
 		SDL_Texture *GetTexture(std::string key);
 		SDL_Renderer *GetRenderer(){ return renderer_; };
 
@@ -34,7 +37,6 @@ namespace breaker{
 	private:
 
 		SDL_Texture *CreateTexture(std::string imgName);
-		Texture newTexture_;
 
 		static ResourceManager *instance_;
 

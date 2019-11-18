@@ -23,16 +23,19 @@ namespace breaker{
 		bool GetKey(int keyIndex) const{ return CurKeyDown(keyIndex) || OldKeyDown(keyIndex); };
 		bool GetKeyUp(int keyIndex) const{ return !CurKeyDown(keyIndex) && OldKeyDown(keyIndex); };
 
-		// Mouse.
+		// Mouse is not used in our game, but the code is here for easy implementation if wanted
+		/*
 		bool MouseDown(int button) const{ return CurMouseKeyDown(button) && !OldMouseKeyDown(button); };
 		bool MouseStillDown(int button);
 		bool MouseUp(int button);
 		bool MouseStillUp(int button);
-
+		*/
 		void Update();
 
 
 	protected:
+		//Comments are from the code we got in class on the presentation
+
 		// A pointer to SDL's internal key state array.
 		// (Memory handled by SDL.)
 		const Uint8* keys = nullptr;
